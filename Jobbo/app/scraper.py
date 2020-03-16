@@ -22,13 +22,15 @@ def scrape_weworkremotely():
             delta = now - job_time
 
             if delta < datetime.timedelta(7):
-                if "Senior" not in job_title and "Lead" not in job_title and "Sr." not in job_title:
+                if "Senior" not in job_title and "Lead" not in job_title and "Sr." not in job_title and "Architect" not in job_title and "Principal" not in job_title:
                     print(f'adding {job_title}')
+
+                    url_end = element.search('href="/remote-jobs/{}">')[0]
 
                     job['posted'] = job_time
                     job['title'] = job_title
                     job['company'] = element.find('span.company', first=True).text
-                    job['url'] = f'https://weworkremotely.com/{element.find("a", first=True).attrs["href"]}'
+                    job['url'] = f'https://weworkremotely.com/remote-jobs/{url_end}'
                     job['logo_url'] = element.search('background-image:url({})')[0] if element.search('background-image:url({})') else ''
                     job['source'] = 'weworkremotely.com'
 
@@ -66,7 +68,7 @@ def scrape_remoteok():
         
         
         if delta < datetime.timedelta(7):
-            if "Senior" not in job_title and "Lead" not in job_title and "Sr." not in job_title:
+            if "Senior" not in job_title and "Lead" not in job_title and "Sr." not in job_title and "Architect" not in job_title and "Principal" not in job_title:
                 print(f'adding {job_title}')
 
                 job['posted'] = job_time

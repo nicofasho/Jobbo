@@ -11,6 +11,6 @@ from app import forms, views
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('scrapes/<int:scrape_id>', views.detail, name='detail'),
+    path('scrapes/<int:pk>', views.ScrapeDetail.as_view(), name='detail'),
     path('admin/', admin.site.urls),
 ]

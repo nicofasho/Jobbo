@@ -18,7 +18,7 @@ class Scrape(models.Model):
         ordering = ['run_time']
     
     def __str__(self):
-        return f'Jobs scraped on {self.run_time}'
+        return f'Jobs found on {self.run_time.strftime("%b %d, %Y")}'
 
 class Job(models.Model):
     title = models.CharField(max_length=200)

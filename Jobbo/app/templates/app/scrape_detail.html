@@ -1,0 +1,27 @@
+{% extends "app/layout.html" %}
+{% block content %}
+
+<h1 class="mb-5">{{scrape}}</h1>
+
+{% for job in scrape.job_set.all %}
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h3 class="mb-4">Job {{forloop.counter}}</h3>
+
+        {% if job.logo_url != '' %}
+        <img class="img-fluid mb-3" src="{{job.logo_url}}" alt="{{job.title}} at {{job.company}}" style="max-width:150px;width:100%" />
+        {% endif %}
+
+
+        <p><a href="{{job.url}}">{{job.title}}</a></p>
+        <ul class="pl-3">
+            <li><strong>Company:</strong> {{job.company}}</li>
+            <li><strong>Source:</strong> {{job.source}}</li>
+        </ul>
+    </div>
+</div>
+
+{% endfor %}
+
+{% endblock %}

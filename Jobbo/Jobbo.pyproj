@@ -63,6 +63,7 @@
     <Folder Include="Jobbo\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\templates\app\scrape_detail.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />

@@ -5,29 +5,28 @@ Definition of views.
 from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpRequest
+from django.core.paginator import Paginator
+from django.views.generic import DetailView
 from .models import Scrape
 
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
+    scrapes = Scrape.objects.all()
+    paginator = Paginator(scrapes, 10)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
     return render(
         request,
         'app/index.html',
         {
-            'title':'Recent Scrapes',
-            'year':datetime.now().year,
+            'title': 'Recent Scrapes - Jobbo',
+            'year': datetime.now().year,
+            'page_obj': page_obj
         }
     )
 
-def detail(request, scrape_id):
-    # Renders Scrape Detail page
-    assert isinstance(request, HttpRequest)
-    curr_scrape = Scrape.objects.get(id=scrape_id)
-    return render(
-        request,
-        'app/detail.html',
-        {
-            'title': f'Jobs Found on {curr_scrape.run_time}',
-            'scrape': curr_scrape,
-            'year':datetime.now().year
-        })
+class ScrapeDetail(DetailView):
+    model = Scrape
