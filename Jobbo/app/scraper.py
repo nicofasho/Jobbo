@@ -1,4 +1,5 @@
 from requests_html import HTMLSession
+from django.utils import timezone
 import datetime
 
 def scrape_weworkremotely():
@@ -9,6 +10,7 @@ def scrape_weworkremotely():
     listings = [element for element in list.find('li')]
     relevant_jobs = []
     now = datetime.datetime.now()
+    now = timezone.make_aware(now, timezone.get_current_timezone())
     print(f'scraping on {now}')
 
     for element in listings:
@@ -19,10 +21,11 @@ def scrape_weworkremotely():
             time_str = element.find('time', first=True).attrs['datetime']
    
             job_time = datetime.datetime.strptime(time_str, '%Y-%m-%dT%H:%M:%SZ')
+            job_time = timezone.make_aware(job_time, timezone.get_current_timezone())
             delta = now - job_time
 
             if delta < datetime.timedelta(7):
-                if "Senior" not in job_title and "Lead" not in job_title and "Sr." not in job_title and "Architect" not in job_title and "Principal" not in job_title:
+                if "Senior" not in job_title and "Lead" not in job_title and "Sr." not in job_title and "Architect" not in job_title and "Principal" not in job_title and "Director" not in job_title:
                     print(f'adding {job_title}')
 
                     url_end = element.search('href="/remote-jobs/{}">')[0]
@@ -52,6 +55,7 @@ def scrape_remoteok():
     listings = [element for element in list.find('tr.job')]
     relevant_jobs = []
     now = datetime.datetime.now()
+    now = timezone.make_aware(now, timezone.get_current_timezone())
     print(f'scraping on {now}')
 
     for element in listings:
@@ -59,6 +63,7 @@ def scrape_remoteok():
 
         time_str = element.find('tr.job', first=True).attrs['data-epoch']
         job_time = datetime.datetime.fromtimestamp(int(time_str))
+        job_time = timezone.make_aware(job_time, timezone.get_current_timezone())
         delta = now - job_time
 
         job_title = element.find('h2', first=True).text
@@ -68,7 +73,7 @@ def scrape_remoteok():
         
         
         if delta < datetime.timedelta(7):
-            if "Senior" not in job_title and "Lead" not in job_title and "Sr." not in job_title and "Architect" not in job_title and "Principal" not in job_title:
+            if "Senior" not in job_title and "Lead" not in job_title and "Sr." not in job_title and "Architect" not in job_title and "Principal" not in job_title and "Director" not in job_title:
                 print(f'adding {job_title}')
 
                 job['posted'] = job_time

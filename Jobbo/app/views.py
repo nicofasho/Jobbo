@@ -13,10 +13,6 @@ def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
     scrapes = Scrape.objects.all()
-    paginator = Paginator(scrapes, 10)
-
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
 
     return render(
         request,
@@ -24,9 +20,16 @@ def home(request):
         {
             'title': 'Recent Scrapes - Jobbo',
             'year': datetime.now().year,
-            'page_obj': page_obj
+            'scrapes': scrapes
         }
     )
 
 class ScrapeDetail(DetailView):
     model = Scrape
+
+    def get_context_data(self, **kwargs):
+        obj = super().get_object()
+        context = super().get_context_data(**kwargs)
+        context['title'] = obj
+        context['year'] = datetime.now().year
+        return context
