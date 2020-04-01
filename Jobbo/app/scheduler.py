@@ -3,6 +3,8 @@ from datetime import datetime
 from apscheduler.schedulers.background import BackgroundScheduler
 from .models import Scrape, Job
 
+print('starting scheduler...')
+
 def new_scrape():
     s = Scrape()
     s.save()
