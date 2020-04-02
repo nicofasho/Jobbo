@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29905.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Jobbo", "Jobbo\Jobbo.pyproj", "{2362FB8B-6541-47CD-8D64-0D936193735A}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Jobbo", "Jobbo.pyproj", "{2362FB8B-6541-47CD-8D64-0D936193735A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
