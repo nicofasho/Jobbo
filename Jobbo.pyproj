@@ -101,6 +101,7 @@
     <Content Include="app\templates\app\login.html" />
     <Content Include="app\templates\app\loginpartial.html" />
     <Content Include="Jobbo\.env" />
+    <Content Include="Procfile" />
     <Content Include="readme.md">
       <SubType>Code</SubType>
     </Content>
